@@ -270,3 +270,5 @@ This project is open source and available under the MIT License. -->
 - **Issues:** Open a GitHub issue
 - **API Docs:** https://educational-tutor-chatbot.onrender.com/docs
 - **OpenRouter Docs:** https://openrouter.ai/docs
+
+![App Screenshot](./Users/hasib/Downloads/app_look.png)
