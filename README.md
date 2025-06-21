@@ -96,8 +96,8 @@ This repository includes a `render.yaml` file for automatic configuration:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/Hasib303/educational-tutor-chatbot.git
-   cd educational-tutor-chatbot
+   git clone https://github.com/Hasib303/educational-tutor-chatbot-final.git
+   cd educational-tutor-chatbot-final
    ```
 
 2. **Create virtual environment (recommended):**
@@ -196,7 +196,7 @@ result = response.json()
 print(result["response"])
 ```
 
-#### JavaScript Example:
+<!-- #### JavaScript Example:
 ```javascript
 fetch('https://educational-tutor-chatbot.onrender.com/chat', {
   method: 'POST',
@@ -207,7 +207,7 @@ fetch('https://educational-tutor-chatbot.onrender.com/chat', {
 })
 .then(response => response.json())
 .then(data => console.log(data.response));
-```
+``` -->
 
 ### Sample Questions to Try:
 - **Math:** "What is 15 × 8?", "Explain fractions to a 4th grader"
@@ -215,14 +215,14 @@ fetch('https://educational-tutor-chatbot.onrender.com/chat', {
 - **Language:** "What is a noun?", "Help me write a paragraph about animals"
 - **History:** "Tell me about Ancient Egypt", "What caused World War 1?"
 
-## 🤖 Model Information
+<!-- ## 🤖 Model Information
 
 This chatbot uses the `mistralai/mistral-7b-instruct:free` model from OpenRouter, which is:
 - **Free to use** - No usage costs
 - **Optimized for instruction-following** - Perfect for educational tasks
 - **Suitable for educational content** - Designed for clear explanations
 - **Fast and reliable** - Quick response times
-- **Rate Limited:** 10 requests per 10 seconds (free tier)
+- **Rate Limited:** 10 requests per 10 seconds (free tier) -->
 
 ## 📊 Project Structure
 ```
@@ -234,11 +234,10 @@ educational-tutor-chatbot/
 ├── .env.example           # Environment variables template
 ├── .gitignore            # Git ignore rules
 ├── README.md             # This file
-├── chat_test.html        # Simple web interface for testing
-└── test_*.py             # API testing scripts
+
 ```
 
-## 🛠️ Technology Stack
+<!-- ## 🛠️ Technology Stack
 - **Backend:** FastAPI (Python)
 - **LLM:** Mistral 7B Instruct via OpenRouter
 - **Deployment:** Render
@@ -265,7 +264,7 @@ educational-tutor-chatbot/
 5. Submit a pull request
 
 ## 📄 License
-This project is open source and available under the MIT License.
+This project is open source and available under the MIT License. -->
 
 ## 🆘 Support
 - **Issues:** Open a GitHub issue
