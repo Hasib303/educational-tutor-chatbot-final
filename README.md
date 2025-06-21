@@ -96,7 +96,7 @@ This repository includes a `render.yaml` file for automatic configuration:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/educational-tutor-chatbot.git
+   git clone https://github.com/Hasib303/educational-tutor-chatbot.git
    cd educational-tutor-chatbot
    ```
 
