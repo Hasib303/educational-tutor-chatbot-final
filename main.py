@@ -193,8 +193,23 @@ async def chat_with_tutor(request: ChatRequest):
                 detail=f"OpenRouter API error: {response.text}"
             )
         
-        result = response.json()
-        assistant_response = result["choices"][0]["message"]["content"]
+        try:
+            result = response.json()
+        except Exception as json_error:
+            print(f"JSON parsing error: {json_error}")
+            print(f"Raw response: {response.text}")
+            raise HTTPException(status_code=500, detail="Invalid JSON response from OpenRouter API")
+        
+        if "choices" not in result or not result["choices"]:
+            print(f"No choices in response: {result}")
+            raise HTTPException(status_code=500, detail="No response choices from OpenRouter API")
+        
+        try:
+            assistant_response = result["choices"][0]["message"]["content"]
+        except (KeyError, IndexError) as content_error:
+            print(f"Content extraction error: {content_error}")
+            print(f"Response structure: {result}")
+            raise HTTPException(status_code=500, detail="Invalid response structure from OpenRouter API")
         
         print(f"Got response: {assistant_response[:100]}...")  # Debug log
         
@@ -211,11 +226,17 @@ async def chat_with_tutor(request: ChatRequest):
         print("Request timeout")  # Debug log
         raise HTTPException(status_code=504, detail="Request timeout")
     except Exception as e:
-        error_msg = str(e)
+        error_msg = str(e) if str(e) else f"Unknown {type(e).__name__} error"
         print(f"Error in chat endpoint: {error_msg}")  # Debug log
         print(f"Error type: {type(e).__name__}")  # Debug log
         import traceback
         print(f"Full traceback: {traceback.format_exc()}")  # Debug log
+        
+        # Fallback to demo mode if OpenRouter fails
+        if "openrouter" in error_msg.lower() or "requests" in str(type(e)).lower():
+            print("OpenRouter API failed, falling back to demo mode")
+            return await demo_chat_response(request)
+        
         raise HTTPException(status_code=500, detail=f"Error processing request: {error_msg}")
 
 @app.get("/chat/{session_id}/history")
