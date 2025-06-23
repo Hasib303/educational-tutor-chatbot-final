@@ -188,6 +188,12 @@ async def chat_with_tutor(request: ChatRequest):
         
         if response.status_code != 200:
             print(f"OpenRouter error: {response.text}")  # Debug log
+            
+            # Handle rate limit by falling back to demo mode
+            if response.status_code == 429:
+                print("Rate limit exceeded, falling back to demo mode")
+                return await demo_chat_response(request)
+                
             raise HTTPException(
                 status_code=response.status_code,
                 detail=f"OpenRouter API error: {response.text}"
