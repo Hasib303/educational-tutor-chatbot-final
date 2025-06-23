@@ -188,34 +188,29 @@ async def chat_with_tutor(request: ChatRequest):
         
         if response.status_code != 200:
             print(f"OpenRouter error: {response.text}")  # Debug log
-            
-            # Handle rate limit by falling back to demo mode
-            if response.status_code == 429:
-                print("Rate limit exceeded, falling back to demo mode")
-                return await demo_chat_response(request)
-                
-            raise HTTPException(
-                status_code=response.status_code,
-                detail=f"OpenRouter API error: {response.text}"
-            )
+            print("OpenRouter API failed, falling back to demo mode")
+            return await demo_chat_response(request)
         
         try:
             result = response.json()
         except Exception as json_error:
             print(f"JSON parsing error: {json_error}")
             print(f"Raw response: {response.text}")
-            raise HTTPException(status_code=500, detail="Invalid JSON response from OpenRouter API")
+            print("JSON parsing failed, falling back to demo mode")
+            return await demo_chat_response(request)
         
         if "choices" not in result or not result["choices"]:
             print(f"No choices in response: {result}")
-            raise HTTPException(status_code=500, detail="No response choices from OpenRouter API")
+            print("Invalid response structure, falling back to demo mode")
+            return await demo_chat_response(request)
         
         try:
             assistant_response = result["choices"][0]["message"]["content"]
         except (KeyError, IndexError) as content_error:
             print(f"Content extraction error: {content_error}")
             print(f"Response structure: {result}")
-            raise HTTPException(status_code=500, detail="Invalid response structure from OpenRouter API")
+            print("Content extraction failed, falling back to demo mode")
+            return await demo_chat_response(request)
         
         print(f"Got response: {assistant_response[:100]}...")  # Debug log
         
@@ -231,6 +226,9 @@ async def chat_with_tutor(request: ChatRequest):
     except requests.exceptions.Timeout:
         print("Request timeout")  # Debug log
         raise HTTPException(status_code=504, detail="Request timeout")
+    except HTTPException:
+        # Re-raise HTTPException without modification
+        raise
     except Exception as e:
         error_msg = str(e) if str(e) else f"Unknown {type(e).__name__} error"
         print(f"Error in chat endpoint: {error_msg}")  # Debug log
@@ -238,12 +236,9 @@ async def chat_with_tutor(request: ChatRequest):
         import traceback
         print(f"Full traceback: {traceback.format_exc()}")  # Debug log
         
-        # Fallback to demo mode if OpenRouter fails
-        if "openrouter" in error_msg.lower() or "requests" in str(type(e)).lower():
-            print("OpenRouter API failed, falling back to demo mode")
-            return await demo_chat_response(request)
-        
-        raise HTTPException(status_code=500, detail=f"Error processing request: {error_msg}")
+        # Always fallback to demo mode for any unexpected error
+        print("Unexpected error occurred, falling back to demo mode")
+        return await demo_chat_response(request)
 
 @app.get("/chat/{session_id}/history")
 async def get_chat_history(session_id: str):
