@@ -50,7 +50,7 @@ venv/
 env/
 ENV/
 
-
+*.png
 
 
 

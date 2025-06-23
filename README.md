@@ -1,10 +1,10 @@
 # Educational Tutor Chatbot
 
-A FastAPI-based chatbot that acts as an educational tutor for students from Class 1 to Class 12. The chatbot uses OpenRouter's free LLM models and maintains in-memory chat sessions.
+A FastAPI-based chatbot with a modern web interface that acts as an educational tutor for students from Class 1 to Class 12. Features both a beautiful frontend and API endpoints, with demo mode and full AI-powered responses.
 
 ## 🌐 Live Deployment
 
-**🚀 Live API:** https://educational-tutor-chatbot.onrender.com
+**💬 Web Chat Interface:** https://educational-tutor-chatbot.onrender.com
 
 **📚 Interactive API Documentation:** https://educational-tutor-chatbot.onrender.com/docs
 
@@ -12,12 +12,24 @@ A FastAPI-based chatbot that acts as an educational tutor for students from Clas
 
 ## ✨ Features
 
+### 🎨 **Frontend Interface**
+- **Modern Chat UI**: Beautiful, responsive web interface with gradient design
+- **Real-time Chat**: Instant messaging with typing indicators and timestamps
+- **Sample Questions**: Pre-built educational questions to get started quickly
+- **Mobile Friendly**: Responsive design that works on all devices
+- **Demo Mode**: Works immediately without API key configuration
+
+### 🤖 **AI-Powered Backend**
 - **Educational Tutoring**: Powered by Mistral 7B Instruct model via OpenRouter
-- **Session Management**: In-memory chat sessions with history
-- **Free to Use**: Uses OpenRouter's free tier models
+- **Session Management**: In-memory chat sessions with conversation history
+- **Smart Responses**: Context-aware educational explanations
+- **Multi-Subject Support**: Math, Science, English, History, and more
+
+### 🛠️ **Technical Features**
 - **RESTful API**: Clean FastAPI endpoints for chat interactions
 - **CORS Enabled**: Browser-compatible for web applications
 - **Auto-deployed**: Hosted on Render with auto-scaling
+- **Free to Use**: Demo mode works without API costs
 
 ## API Endpoints
 
@@ -28,7 +40,8 @@ A FastAPI-based chatbot that acts as an educational tutor for students from Clas
 - `DELETE /chat/{session_id}` - Delete a chat session
 
 ### Utility Endpoints
-- `GET /` - Root endpoint with API info
+- `GET /` - Serves the web chat interface
+- `GET /api` - API information endpoint
 - `GET /health` - Health check endpoint
 
 ## 🔧 Environment Variable Setup
@@ -128,8 +141,8 @@ This repository includes a `render.yaml` file for automatic configuration:
    ```
 
 6. **Access your chatbot:**
-   - **API:** http://localhost:8000
-   - **Interactive Docs:** http://localhost:8000/docs
+   - **Web Interface:** http://localhost:8000
+   - **API Docs:** http://localhost:8000/docs
    - **Health Check:** http://localhost:8000/health
 
 ### Testing Locally:
@@ -143,9 +156,17 @@ curl -X POST "http://localhost:8000/chat" \
   -d '{"message": "Hello, can you help me with math?"}'
 ```
 
-## 🚀 API Usage Instructions
+## 🚀 Usage Instructions
 
-### Method 1: Interactive Web Interface (Easiest)
+### Method 1: Web Chat Interface (Recommended)
+**Simply visit:** https://educational-tutor-chatbot.onrender.com
+
+1. **Instant Access**: No setup required, works immediately in demo mode
+2. **Try Sample Questions**: Click any of the pre-built educational questions
+3. **Ask Anything**: Type your own questions about math, science, English, or history
+4. **Session Management**: Use "New Chat" and "Clear" buttons as needed
+
+### Method 2: API Documentation Interface
 Visit the interactive API documentation: https://educational-tutor-chatbot.onrender.com/docs
 
 1. Find the `POST /chat` endpoint
@@ -158,7 +179,7 @@ Visit the interactive API documentation: https://educational-tutor-chatbot.onren
    ```
 4. Click "Execute" to get the tutor's response
 
-### Method 2: Command Line (curl)
+### Method 3: Command Line (curl)
 
 #### Create a new session:
 ```bash
@@ -182,7 +203,7 @@ curl -X POST "https://educational-tutor-chatbot.onrender.com/chat" \
   }'
 ```
 
-### Method 3: Programming Languages
+### Method 4: Programming Languages
 
 #### Python Example:
 ```python
@@ -215,6 +236,22 @@ fetch('https://educational-tutor-chatbot.onrender.com/chat', {
 - **Language:** "What is a noun?", "Help me write a paragraph about animals"
 - **History:** "Tell me about Ancient Egypt", "What caused World War 1?"
 
+## 🎯 Demo Mode vs Full AI Mode
+
+### 🤖 **Demo Mode** (Default - No API Key Required)
+- **Instant Access**: Works immediately without any setup
+- **Educational Responses**: Pre-built answers for common subjects
+- **Sample Interactions**: Perfect for testing and demonstration
+- **Subjects Covered**: Math, Science, English, History
+- **Cost**: Completely free
+
+### 🚀 **Full AI Mode** (Requires OpenRouter API Key)
+- **Advanced AI**: Powered by Mistral 7B Instruct model
+- **Personalized Responses**: Contextual, detailed explanations
+- **Unlimited Topics**: Can discuss any educational subject
+- **Conversation Memory**: Remembers previous messages in session
+- **Cost**: Free tier available on OpenRouter (10 requests per 10 seconds)
+
 <!-- ## 🤖 Model Information
 
 This chatbot uses the `mistralai/mistral-7b-instruct:free` model from OpenRouter, which is:
@@ -227,14 +264,17 @@ This chatbot uses the `mistralai/mistral-7b-instruct:free` model from OpenRouter
 ## 📊 Project Structure
 ```
 educational-tutor-chatbot/
-├── main.py                 # FastAPI application
+├── main.py                 # FastAPI application with demo mode
 ├── requirements.txt        # Python dependencies
 ├── render.yaml            # Render deployment config
 ├── runtime.txt            # Python runtime version
 ├── .env.example           # Environment variables template
+├── static/                # Frontend files
+│   ├── index.html         # Chat interface
+│   ├── style.css          # Modern responsive styling
+│   └── script.js          # Chat functionality & API integration
 ├── .gitignore            # Git ignore rules
-├── README.md             # This file
-
+└── README.md             # This file
 ```
 
 <!-- ## 🛠️ Technology Stack
@@ -270,5 +310,6 @@ This project is open source and available under the MIT License. -->
 - **Issues:** Open a GitHub issue
 - **API Docs:** https://educational-tutor-chatbot.onrender.com/docs
 - **OpenRouter Docs:** https://openrouter.ai/docs
+
 
 ![App Screenshot](./apitest_ss.png)
